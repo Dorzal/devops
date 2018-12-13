@@ -278,6 +278,8 @@ class Utilisateur
         return $this;
     }
 
+    //Todo objet : groupe, matiere, etat, etude, commentaire, cours
+
 
 
 
