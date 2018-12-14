@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GroupeRepository")
@@ -22,6 +24,13 @@ class Groupe
     private $nom_groupe;
 
 
+    /**
+     * Many Groupes have Many Utilisateurs.
+     * @ORM\ManyToMany(targetEntity="Utilisateur", mappedBy="groupes")
+     */
+    private $utilisateurs;
+
+
     public function getIdGroupe(): ?int
     {
         return $this->id_groupe;
@@ -39,8 +48,8 @@ class Groupe
         return $this;
     }
 
+    public function __construct() {
+        $this->utilisateurs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
-
-
-    // TODO objet utilisateur, groupe
 }

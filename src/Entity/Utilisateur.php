@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
@@ -90,6 +93,29 @@ class Utilisateur
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $instagram;
+
+    /**
+     * Many Utilisateurs have Many Groupes.
+     * @ORM\ManyToMany(targetEntity="Groupe")
+     * @ORM\JoinTable(name="users_groups",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id_utilisateur")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id_groupe")}
+     *      )
+     */
+    private $groupes;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Promo")
+     * @ORM\JoinColumn(name="promo_id", referencedColumnName="id_promo")
+     */
+    private $promo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Statut")
+     * @ORM\JoinColumn(name="statut_id", referencedColumnName="id_statut")
+     */
+    private $statut;
 
 
 
@@ -278,7 +304,35 @@ class Utilisateur
         return $this;
     }
 
-    //Todo objet : groupe, matiere, etat, etude, commentaire, cours
+    public function getPromo(): ?string
+    {
+        return $this->promo;
+    }
+
+    public function setPromo(?string $promo): self
+    {
+        $this->promo = $promo;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->promo;
+    }
+
+    public function setStatut(?string $promo): self
+    {
+        $this->promo = $promo;
+
+        return $this;
+    }
+
+    public function __construct() {
+        $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    //Todo objet :   etat, etude, commentaire, cours
 
 
 
