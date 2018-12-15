@@ -28,6 +28,12 @@ class Matiere
      */
     private $promos;
 
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Cours", mappedBy="matieres")
+     */
+    private $coursparmatiere;
+
     public function getIdMatiere(): ?int
     {
         return $this->id_matiere;
@@ -51,6 +57,7 @@ class Matiere
 
     public function __construct(){
         $this->promos = new ArrayCollection();
+        $this->coursparmatiere = new ArrayCollection();
     }
 
     //TODO objet diplome

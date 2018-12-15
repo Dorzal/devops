@@ -52,6 +52,7 @@ class Groupe
         return $this->utilisateurs;
     }
 
+
     public function __construct() {
         $this->utilisateurs = new ArrayCollection();
     }

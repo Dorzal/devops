@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,6 +51,25 @@ class Cours
      * @ORM\ManyToMany(targetEntity="Utilisateur", mappedBy="Cours")
      */
     private $utilisateursFav;
+
+
+    /**
+     * Many features have one product. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Matiere", inversedBy="coursparmatiere")
+     * @ORM\JoinColumn(name="matiere_id", referencedColumnName="id_matiere")
+     */
+    private $matieres;
+
+
+    /**
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="Groupe")
+     * @ORM\JoinTable(name="cours_groups",
+     *      joinColumns={@ORM\JoinColumn(name="cours_id", referencedColumnName="id_cours")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id_groupe")}
+     *      )
+     */
+    private $groups;
 
 
 
@@ -114,6 +134,19 @@ class Cours
 
     public function getUtilisateurFav() {
         return $this->utilisateursFav;
+    }
+
+    public function getMatieres(){
+        return $this->matieres;
+    }
+
+    public function getGroups(){
+        return $this->groups;
+    }
+
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
     }
 
 
