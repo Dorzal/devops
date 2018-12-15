@@ -32,9 +32,6 @@ class LoadUtilisateurData extends Fixture
         $manager->persist($arnaud);
 
         $manager->flush();
-
-
-
     }
 
 

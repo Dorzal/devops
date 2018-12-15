@@ -22,6 +22,10 @@ class DefaultController
         $this->twig = $twig;
     }
 
+
+
+
+
     public function index(Request $request): Response
     {
         return new Response($this->twig->render('home.html.twig', [
