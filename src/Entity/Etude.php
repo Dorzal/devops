@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +22,12 @@ class Etude
      */
     private $annee_etude;
 
+    /**
+     * One product has many features. This is the inverse side.
+     * @OneToMany(targetEntity="Promo", mappedBy="Etude")
+     */
+    private $promos;
+
     public function getIdEtude(): ?int
     {
         return $this->id_etude;
@@ -37,6 +44,16 @@ class Etude
 
         return $this;
     }
+
+    public function getPromos(){
+        return $this->promos;
+    }
+
+    public function __construct()
+    {
+        $this->promos = new ArrayCollection();
+    }
+
 
     //Todo objet promo et utilisateur
 }

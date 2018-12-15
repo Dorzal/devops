@@ -26,6 +26,13 @@ class Commentaire
      */
     private $date_commentaire;
 
+    /**
+     * Many features have one product. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Utilisateur", inversedBy="Commentaire")
+     * @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id_utilisateur")
+     */
+    private $utilisateur;
+
     public function getIdCommentaire(): ?int
     {
         return $this->id_commentaire;
@@ -53,6 +60,10 @@ class Commentaire
         $this->date_commentaire = $date_commentaire;
 
         return $this;
+    }
+
+    public function getUtilisateur(){
+        return $this->utilisateur;
     }
 
     //Todo objet cours, utilisateur

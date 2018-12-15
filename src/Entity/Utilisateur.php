@@ -104,6 +104,16 @@ class Utilisateur
      */
     private $groupes;
 
+    /**
+     * Many Utilisateurs have Many Groupes.
+     * @ORM\ManyToMany(targetEntity="Cours")
+     * @ORM\JoinTable(name="favoris",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id_utilisateur")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="cours_id", referencedColumnName="id_cours")}
+     *      )
+     */
+    private $favoris;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Promo")
@@ -116,6 +126,43 @@ class Utilisateur
      * @ORM\JoinColumn(name="statut_id", referencedColumnName="id_statut")
      */
     private $statut;
+
+    /**
+     * Many Users have Many Users.
+     * @ORM\ManyToMany(targetEntity="Utilisateur", mappedBy="myFriends")
+     */
+    private $friendsWithMe;
+
+    /**
+     * Many Users have many Users.
+     * @ORM\ManyToMany(targetEntity="Utilisateur", inversedBy="friendsWithMe")
+     * @ORM\JoinTable(name="friends",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id_utilisateur")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id_utilisateur")}
+     *      )
+     */
+    private $myFriends;
+
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="Utilisateur")
+     */
+    private $commentaires;
+
+
+    /**
+     * One Product has One Shipment.
+     * @OneToOne(targetEntity="Etude")
+     * @JoinColumn(name="etude_id", referencedColumnName="id_etude")
+     */
+    private $etude;
+
+
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Cours", mappedBy="Utilisateur")
+     */
+    private $mescours;
 
 
 
@@ -318,21 +365,57 @@ class Utilisateur
 
     public function getStatut(): ?string
     {
-        return $this->promo;
+        return $this->statut;
     }
 
-    public function setStatut(?string $promo): self
+    public function setStatut(?string $statut): self
     {
-        $this->promo = $promo;
+        $this->promo = $statut;
 
         return $this;
     }
 
-    public function __construct() {
-        $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
+    public function getGroupes()
+    {
+        return $this->groupes;
     }
 
-    //Todo objet :   etat, etude, commentaire, cours
+    public function getFavoris(){
+        return $this->favoris;
+    }
+
+    public function getFriendsWithMe()
+    {
+        return $this->friendsWithMe;
+    }
+
+    public function getMyFriends()
+    {
+        return $this->myFriends;
+    }
+
+    public function getCommentaires(){
+        return $this->commentaires;
+    }
+
+    public function getMesCours(){
+        return $this->mescours;
+    }
+
+    public function getEtude() {
+        return $this->etude;
+    }
+
+    public function __construct() {
+        $this->groupes = new ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
+        $this->myFriends = new ArrayCollection();
+        $this->commentaires = new arrayCollection();
+        $this->mescours = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
+    }
+
+
 
 
 

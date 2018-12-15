@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +22,12 @@ class Matiere
      */
     private $nom_matiere;
 
+    /**
+     * Many Groupes have Many Utilisateurs.
+     * @ORM\ManyToMany(targetEntity="Promo", mappedBy="matieres")
+     */
+    private $promos;
+
     public function getIdMatiere(): ?int
     {
         return $this->id_matiere;
@@ -36,6 +43,14 @@ class Matiere
         $this->nom_matiere = $nom_matiere;
 
         return $this;
+    }
+
+    public function getPromos(){
+        return $this->promos;
+    }
+
+    public function __construct(){
+        $this->promos = new ArrayCollection();
     }
 
     //TODO objet diplome

@@ -48,8 +48,12 @@ class Groupe
         return $this;
     }
 
+    public function getUtilisateurs(){
+        return $this->utilisateurs;
+    }
+
     public function __construct() {
-        $this->utilisateurs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->utilisateurs = new ArrayCollection();
     }
 
 }

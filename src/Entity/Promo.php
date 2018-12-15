@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +22,31 @@ class Promo
      */
     private $nom_promo;
 
+    /**
+     * Many promo have Many matiere.
+     * @ORM\ManyToMany(targetEntity="Matiere")
+     * @ORM\JoinTable(name="promo_matieres",
+     *      joinColumns={@ORM\JoinColumn(name="promo_id", referencedColumnName="id_promo")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="matiere_id", referencedColumnName="id_matiere")}
+     *      )
+     */
+    private $matieres;
+
+    /**
+     * Many features have one product. This is the owning side.
+     * @ManyToOne(targetEntity="Diplome", inversedBy="promosbydiplomes")
+     * @JoinColumn(name="diplome_id", referencedColumnName="id_diplome")
+     */
+    private $diplomes;
+
+    /**
+     * Many features have one product. This is the owning side.
+     * @ManyToOne(targetEntity="Etude", inversedBy="promos")
+     * @JoinColumn(name="etude_id", referencedColumnName="id_etude")
+     */
+    private $etude;
+
+
     public function getIdPromo(): ?int
     {
         return $this->id_promo;
@@ -36,5 +62,26 @@ class Promo
         $this->nom_promo = $nom_promo;
 
         return $this;
+    }
+
+    public function getMatieres(){
+        return $this->matieres;
+    }
+
+    public function getDiplomes(){
+        return $this->diplomes;
+    }
+
+    public function getEtude(){
+        return $this->etude;
+    }
+
+
+
+
+    public function __construct()
+    {
+        $this->matieres = new ArrayCollection();
+        $this->diplomes = new ArrayCollection();
     }
 }

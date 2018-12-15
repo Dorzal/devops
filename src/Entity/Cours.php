@@ -38,9 +38,20 @@ class Cours
     private $certifie;
 
     /**
-     * @ORM\Column(type="boolean")
+     * Many features have one product. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Utilisateur", inversedBy="Cours")
+     * @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id_utilisateur")
      */
-    private $like_cours;
+    private $utilisateur;
+
+
+    /**
+     * Many fav have Many Utilisateurs.
+     * @ORM\ManyToMany(targetEntity="Utilisateur", mappedBy="Cours")
+     */
+    private $utilisateursFav;
+
+
 
     public function getIdCours(): ?int
     {
@@ -97,17 +108,14 @@ class Cours
         return $this;
     }
 
-    public function getLikeCours(): ?bool
-    {
-        return $this->like_cours;
+    public function getUtilisateur() {
+        return $this->utilisateur;
     }
 
-    public function setLikeCours(bool $like_cours): self
-    {
-        $this->like_cours = $like_cours;
-
-        return $this;
+    public function getUtilisateurFav() {
+        return $this->utilisateursFav;
     }
+
 
     //TODO groupe, matiere, utilisateur, etat,
 }
