@@ -23,9 +23,14 @@ class Cours
     private $nom_cours;
 
     /**
-     * @ORM\Column(type="blob")
+     * @ORM\Column(type="text")
      */
     private $contenu_cours;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $image_cours;
 
 
     /**
@@ -88,6 +93,19 @@ class Cours
         $this->nom_cours = $nom_cours;
 
         return $this;
+    }
+
+    public function getImageCours(): ?string
+    {
+        return $this->image_cours;
+    }
+
+    public function setImageCours(string $image_cours): self
+    {
+        $this->image_cours = $image_cours;
+
+        return $this;
+
     }
 
 
