@@ -34,15 +34,15 @@ class Promo
 
     /**
      * Many features have one product. This is the owning side.
-     * @ManyToOne(targetEntity="Diplome", inversedBy="promosbydiplomes")
-     * @JoinColumn(name="diplome_id", referencedColumnName="id_diplome")
+     * @ORM\ManyToOne(targetEntity="Diplome", inversedBy="promosbydiplomes")
+     * @ORM\JoinColumn(name="diplome_id", referencedColumnName="id_diplome")
      */
     private $diplomes;
 
     /**
      * Many features have one product. This is the owning side.
-     * @ManyToOne(targetEntity="Etude", inversedBy="promos")
-     * @JoinColumn(name="etude_id", referencedColumnName="id_etude")
+     * @ORM\ManyToOne(targetEntity="Etude", inversedBy="promos")
+     * @ORM\JoinColumn(name="etude_id", referencedColumnName="id_etude")
      */
     private $etude;
 

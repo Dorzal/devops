@@ -152,8 +152,8 @@ class Utilisateur
 
     /**
      * One Product has One Shipment.
-     * @OneToOne(targetEntity="Etude")
-     * @JoinColumn(name="etude_id", referencedColumnName="id_etude")
+     * @ORM\OneToOne(targetEntity="Etude")
+     * @ORM\JoinColumn(name="etude_id", referencedColumnName="id_etude")
      */
     private $etude;
 

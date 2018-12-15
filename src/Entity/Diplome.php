@@ -41,7 +41,7 @@ class Diplome
 
     /**
      * One product has many features. This is the inverse side.
-     * @OneToMany(targetEntity="Promo", mappedBy="diplomes")
+     * @ORM\OneToMany(targetEntity="Promo", mappedBy="diplomes")
      */
     private $promosbydiplomes;
 
