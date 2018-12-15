@@ -23,12 +23,12 @@ class LoadUtilisateurData extends Fixture
         $arnaud->setActive(true);
         $arnaud->setAge(24);
         $arnaud->setBio("je dev de temps en temps");
-        $arnaud->setMail("arnaud@lesson.com");
-        $arnaud->setMdp("admin");
+        $arnaud->setEmail("arnaud@lesson.com");
+        $arnaud->setPassword("admin");
+        $arnaud->setPlainPassword("admin");
         $arnaud->setNom("Linder");
-        $arnaud->setNomUtilisateur("admin");
+        $arnaud->setUsername("admin");
         $arnaud->setPrenom("Arnaud");
-        $arnaud->setPhoto("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Logo_TV_2015.png/280px-Logo_TV_2015.png");
         $manager->persist($arnaud);
 
         $manager->flush();

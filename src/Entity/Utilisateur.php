@@ -5,12 +5,14 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -20,22 +22,23 @@ class Utilisateur
     private $id_utilisateur;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
      */
-    private $nom_utilisateur;
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $age;
 
@@ -45,19 +48,30 @@ class Utilisateur
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
-    private $mail;
+    private $email;
 
     /**
-     * @ORM\Column(type="blob")
+     * @ORM\Column(type="text")
      */
-    private $photo;
+    private $photo = "https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png";
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * The below length depends on the "algorithm" you use for encoding
+     * the password, but this works well with bcrypt.
+     *
+     * @ORM\Column(type="string", length=64)
      */
-    private $mdp;
+    private $password;
+
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -75,7 +89,7 @@ class Utilisateur
     private $twitter;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", unique=true)
      */
     private $token;
 
@@ -85,7 +99,7 @@ class Utilisateur
     private $date;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $active;
 
@@ -93,6 +107,11 @@ class Utilisateur
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $instagram;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles;
 
     /**
      * Many Utilisateurs have Many Groupes.
@@ -164,21 +183,55 @@ class Utilisateur
      */
     private $mescours;
 
+    public function __construct() {
+        $this->groupes = new ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
+        $this->myFriends = new ArrayCollection();
+        $this->commentaires = new arrayCollection();
+        $this->mescours = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
+        $this->roles = array('ROLE_USER');
+    }
 
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }
+
+    public function getSalt()
+    {
+        // The bcrypt and argon2i algorithms don't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    public function eraseCredentials()
+    {
+    }
 
     public function getIdUtilisateur(): ?int
     {
         return $this->id_utilisateur;
     }
 
-    public function getNomUtilisateur(): ?string
+    public function getUsername(): ?string
     {
-        return $this->nom_utilisateur;
+        return $this->username;
     }
 
-    public function setNomUtilisateur(string $nom_utilisateur): self
+    public function setUsername(string $username): self
     {
-        $this->nom_utilisateur = $nom_utilisateur;
+        $this->username = $username;
 
         return $this;
     }
@@ -231,14 +284,14 @@ class Utilisateur
         return $this;
     }
 
-    public function getMail(): ?string
+    public function getEmail(): ?string
     {
-        return $this->mail;
+        return $this->email;
     }
 
-    public function setMail(string $mail): self
+    public function setEmail(string $email): self
     {
-        $this->mail = $mail;
+        $this->email = $email;
 
         return $this;
     }
@@ -255,14 +308,14 @@ class Utilisateur
         return $this;
     }
 
-    public function getMdp(): ?string
+    public function getPassword(): ?string
     {
-        return $this->mdp;
+        return $this->password;
     }
 
-    public function setMdp(string $mdp): self
+    public function setPassword(string $password): self
     {
-        $this->mdp = $mdp;
+        $this->password = $password;
 
         return $this;
     }
@@ -406,14 +459,7 @@ class Utilisateur
         return $this->etude;
     }
 
-    public function __construct() {
-        $this->groupes = new ArrayCollection();
-        $this->friendsWithMe = new ArrayCollection();
-        $this->myFriends = new ArrayCollection();
-        $this->commentaires = new arrayCollection();
-        $this->mescours = new ArrayCollection();
-        $this->favoris = new ArrayCollection();
-    }
+
 
 
 
