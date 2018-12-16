@@ -27,6 +27,10 @@ class CoursController extends AbstractController
 
     public function show(EntityManagerInterface $em, int $id_cours) : Response
     {
+//        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+
+
+
         // dans un projet réel, il sera nécessaire de faire une requête permettant de vérifier que tous les éléments
         // correspondent à une offre d'emploi valide
         $cours = $em->getRepository(Cours::class)->find($id_cours);

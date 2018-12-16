@@ -164,8 +164,7 @@ class Cours
     }
 
     public function getMatieres(){
-        $this->matieres = new Matiere();
-        return $this->matieres->getNomMatiere();
+        return $this->matieres;
     }
 
     public function getGroups(){
