@@ -12,8 +12,8 @@
             </div>
             <div class="col-md-5">
                 <h3>{{ cours.getNomCours() }}</h3>
-                <p>{{ cours.getContenuCours() }}</p>
-                <a class="btn btn-primary" href="#">See more</a>
+                <p>écrit par : {{ cours.getUtilisateur().username }}</p>
+                <a class="btn btn-primary" href="{{ path('cours_show', { 'id_cours': cours.getIdCours() }) }}">Apprendre</a>
             </div>
         </div>
 

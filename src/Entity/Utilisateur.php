@@ -88,10 +88,6 @@ class Utilisateur implements UserInterface
      */
     private $twitter;
 
-    /**
-     * @ORM\Column(type="string", unique=true)
-     */
-    private $token;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -352,18 +348,6 @@ class Utilisateur implements UserInterface
     public function setTwitter(?string $twitter): self
     {
         $this->twitter = $twitter;
-
-        return $this;
-    }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    public function setToken(?string $token): self
-    {
-        $this->token = $token;
 
         return $this;
     }

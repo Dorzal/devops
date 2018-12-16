@@ -11,8 +11,7 @@ registration_register:
 login:
   path: /security/login
   defaults: { _controller: 'App\Controller\SecurityController::login' }
-# Depends on sensio/framework-extra-bundle, doctrine/annotations, and doctrine/cache
-#   install with composer req sensio/framework-extra-bundle annot
-#controllers:
-#    resource: ../src/Controller/
-#    type: annotation
+
+cours_show:
+  path: /cours/{id_cours}
+  defaults: { _controller: 'App\Controller\CoursController::show' }

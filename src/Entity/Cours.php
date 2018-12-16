@@ -78,6 +78,14 @@ class Cours
 
 
 
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="Cours")
+     */
+    private $commentaires;
+
+
+
     public function getIdCours(): ?int
     {
         return $this->id_cours;
@@ -147,6 +155,7 @@ class Cours
     }
 
     public function getUtilisateur() {
+
         return $this->utilisateur;
     }
 
@@ -155,7 +164,8 @@ class Cours
     }
 
     public function getMatieres(){
-        return $this->matieres;
+        $this->matieres = new Matiere();
+        return $this->matieres->getNomMatiere();
     }
 
     public function getGroups(){
@@ -165,6 +175,7 @@ class Cours
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->commentaires = new arrayCollection();
     }
 
 

@@ -72,6 +72,13 @@ class Promo
         return $this->diplomes;
     }
 
+    public function setDiplomes(Diplome $diplome)
+    {
+        $this->diplomes = $diplome;
+
+        return $this;
+    }
+
     public function getEtude(){
         return $this->etude;
     }

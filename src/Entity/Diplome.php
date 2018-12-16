@@ -83,6 +83,13 @@ class Diplome
         return $this->promosbydiplomes;
     }
 
+    public function setPromosByDiplomes(Promo $promo)
+    {
+        $this->promosbydiplomes = $promo;
+
+        return $this;
+    }
+
     public function __construct(){
         $this->promos = new ArrayCollection();
         $this->promosbydiplomes = new ArrayCollection();
